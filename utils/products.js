@@ -1,3 +1,5 @@
+import Joi from 'joi'
+
 const rtrnAllowedParams = (updatedParams) => {
 
     const allowedUpdates = ["name","qunatity","description","color","size","category","price","images"];
@@ -9,8 +11,17 @@ const rtrnAllowedParams = (updatedParams) => {
     return returned;
 }
 
-const checkUpdated = (updatedParams) => {
+const validateUpdated = (updatedParams) => {
+    
+    const schema = Joi.object({
+        name: Joi.string().alphanum().min(3).max(30),
+        qunatity: Joi.number().integer(),
+        price: Joi.number(),
+        color: Joi.array().items(Joi.string().valid("red","black","white")),
+        size: Joi.array().items(Joi.string().valid("Small","Meduim","Large"))
+    })
 
+    return schema.validate(updatedParams);
 }
 
-export {rtrnAllowedParams, checkUpdated};
+export {rtrnAllowedParams, validateUpdated};
