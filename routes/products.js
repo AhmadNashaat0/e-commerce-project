@@ -1,5 +1,5 @@
-import express from express
-
+import express from "express"
+import { deleteProduct} from "../controllers/products.js";
 const router = express.Router();
 
 router
@@ -7,6 +7,7 @@ router
 
 router
     .route('/:id')
+    .delete(deleteProduct)
 
 
 export default router;
