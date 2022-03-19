@@ -1,7 +1,7 @@
 const Products = [
     {
         id:0,
-        name:`product-${id}`,
+        name:`product-0`,
         qunatity:99,
         description:"t-shirt",
         color:["red","black","white"],
@@ -9,11 +9,11 @@ const Products = [
         size:["Small","Meduim","Large"],
         category:"",
         price:9999,
-        images:[`product${id}.jpg`]
+        images:[`product0.jpg`]
     },
     {
         id:1,
-        name:`product-${id}`,
+        name:`product-1`,
         qunatity:99,
         description:"t-shirt",
         color:["red","black","white"],
@@ -21,11 +21,11 @@ const Products = [
         size:["Small","Meduim","Large"],
         category:"",
         price:9999,
-        images:[`product${id}.jpg`]
+        images:[`product1.jpg`]
     },
     {
         id:2,
-        name:`product-${id}`,
+        name:`product-2`,
         qunatity:99,
         description:"t-shirt",
         color:["red","black","white"],
@@ -33,11 +33,11 @@ const Products = [
         size:["Small","Meduim","Large"],
         category:"",
         price:9999,
-        images:[`product${id}.jpg`]
+        images:[`product2.jpg`]
     },
     {
         id:3,
-        name:`product-${id}`,
+        name:`product-3`,
         qunatity:99,
         description:"t-shirt",
         color:["red","black","white"],
@@ -45,11 +45,11 @@ const Products = [
         size:["Small","Meduim","Large"],
         category:"",
         price:9999,
-        images:[`product${id}.jpg`]
+        images:[`product3.jpg`]
     },
     {
         id:4,
-        name:`product-${id}`,
+        name:`product-4`,
         qunatity:99,
         description:"t-shirt",
         color:["red","black","white"],
@@ -57,11 +57,11 @@ const Products = [
         size:["Small","Meduim","Large"],
         category:"",
         price:9999,
-        images:[`product${id}.jpg`]
+        images:[`product4.jpg`]
     },
     {
         id:5,
-        name:`product-${id}`,
+        name:`product-5`,
         qunatity:99,
         description:"t-shirt",
         color:["red","black","white"],
@@ -69,7 +69,7 @@ const Products = [
         size:["Small","Meduim","Large"],
         category:"",
         price:9999,
-        images:[`product${id}.jpg`]
+        images:[`product5.jpg`]
     },
 ]
 

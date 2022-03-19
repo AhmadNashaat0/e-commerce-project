@@ -1,12 +1,15 @@
-import express from express
+import express from "express";
+import {updateProduct} from '../controllers/products.js';
 
-const router = express.Router();
+const router = 
+express.Router();
 
 router
     .route('/')
 
 router
-    .route('/:id')
-
+    .route("/:id")
+    .put(updateProduct)
+    
 
 export default router;
