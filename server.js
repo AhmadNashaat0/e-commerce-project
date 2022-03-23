@@ -1,6 +1,10 @@
-import express from 'express';
-import productRouter from './routes/products.js'
-const app = express()
+import express from "express";
+import routes from './routes/index.js';
+const app = express();
 
-app.use('/products', productRouter)
-app.listen(3000, console.log('listning on localhost 3000'))
+
+app.use(express.json());
+routes(app);
+
+app.listen(3000,()=>console.log('connocted to the server on port 3000'))
+
