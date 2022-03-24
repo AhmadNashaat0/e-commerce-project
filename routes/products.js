@@ -1,8 +1,7 @@
 import express from "express";
-import {updateProduct} from '../controllers/products.js';
+import {updateProduct, deleteProduct} from '../controllers/products.js';
+const router = express.Router();
 
-const router = 
-express.Router();
 
 router
     .route('/')
@@ -10,6 +9,6 @@ router
 router
     .route("/:id")
     .put(updateProduct)
-    
+    .delete(deleteProduct)
 
 export default router;
