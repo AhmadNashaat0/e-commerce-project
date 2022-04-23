@@ -8,5 +8,5 @@ const app = express();
 app.use(express.json());
 routes(app);
 
-connectDB(process.env.DATABASE_URI)
+connectDB(process.env.DATABASE_LOCAL)
 app.listen(3000,()=>console.log('connected to the server on port 3000'))
