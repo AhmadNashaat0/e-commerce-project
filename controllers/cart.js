@@ -1,0 +1,114 @@
+import Cart from "../models/cart.js";
+import Product from "../models/product.js";
+
+
+const getCart = async (req, res) => {
+  try {
+    const cart = await Cart.findOne({ user: req.user._id });
+    res.status(200).send(cart);
+  } catch (e) {
+    res.status(400).send(e);
+  }
+}
+
+const createCart = async (req, res) => {
+  try {
+    const cart = await Cart.create(req.body);
+    res.status(200).send(cart);
+  } catch (e) {
+    res.status(400).send(e);
+  }
+}
+
+const removeCart = async (req, res) => {
+    try {
+      const cart = await Cart.deleteOne({ user: req.user._id });
+      res.status(200).send(cart);
+    } catch (e) {
+      res.status(400).send(e);
+    }
+}
+  
+
+const addProductToCart = async (req, res) => {
+  try {
+    const cart = await Cart.findOne({ user: req.user._id });
+    const product = await Product.findById(req.body.product);
+    const cartItem = cart.products.find(item => item.product.toString() === product._id.toString());
+    if (cartItem) {
+      cartItem.quantity += 1;
+      calculateCartPrice(cartItem);
+    } else {
+      cart.products.push({
+        product: product._id,
+        quantity: 1,
+        itemPrice: product.price,
+        itemTax: product.tax,
+        totalPrice: product.price,
+        totalTax: product.tax,
+        priceWithTax: product.price + product.tax
+      });
+    }
+    cart.updatedAt = Date.now();
+    await cart.save();
+    res.status(200).send(cart);
+  } catch (e) {
+    res.status(400).send(e);
+  }
+}
+
+const removeProductFromCart = async (req, res) => {
+  try {
+    const cart = await Cart.findOne({ user: req.user._id });
+    const product = await Product.findById(req.body.product);
+    const cartItem = cart.products.find(item => item.product.toString() === product._id.toString());
+    if (cartItem) {
+        if (cartItem.quantity === 1) {
+            cart.products.pull(cartItem);
+        } else {
+            cartItem.quantity -= 1;
+            calculateCartPrice(cartItem);
+        }
+      
+    }
+    cart.updatedAt = Date.now();
+    await cart.save();
+    res.status(200).send(cart);
+  } catch (e) {
+    res.status(400).send(e);
+  }
+}
+
+const getProductsStatus = async (req, res) => {
+    try {
+      const cart = await Cart.findOne({ user: req.user._id });
+      const products = await Product.find({ _id: { $in: cart.products.map(item => item.product) } });
+      const productsStatus = products.map(product => {
+        const cartItem = cart.products.find(item => item.product.toString() === product._id.toString());
+        return {
+          product: product._id,
+          status: cartItem.status
+        }
+      });
+      res.status(200).send(productsStatus);
+    } catch (e) {
+      res.status(400).send(e);
+    }
+  }
+
+
+const calculateCartPrice = (item) => {
+    item.totalPrice = item.quantity * item.itemPrice;
+    item.totalTax = item.quantity * item.itemTax;
+    item.priceWithTax = item.totalPrice + item.totalTax;
+    return { totalPrice, totalTax, priceWithTax };
+}
+
+modules.exports = {
+    getCart,
+    createCart,
+    removeCart,
+    addProductToCart,
+    removeProductFromCart,
+    getProductsStatus
+}
