@@ -10,7 +10,7 @@ import {
     removeProductFromCart,
     getProductsStatus,
     updateProductStatus
-} from "../controllers/cart";
+} from "../controllers/cart.js";
 
 router
     .route('/')
