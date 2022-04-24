@@ -1,7 +1,7 @@
 import Cart from "../models/cart.js";
 import Product from "../models/product.js";
 
-
+// getting cart
 const getCart = async (req, res) => {
   try {
     const cart = await Cart.findOne({ user: req.user._id });
@@ -11,6 +11,7 @@ const getCart = async (req, res) => {
   }
 }
 
+// creating cart
 const createCart = async (req, res) => {
   try {
     const cart = await Cart.create(req.body);
@@ -20,6 +21,7 @@ const createCart = async (req, res) => {
   }
 }
 
+// removing cart
 const removeCart = async (req, res) => {
     try {
       const cart = await Cart.deleteOne({ user: req.user._id });
@@ -29,7 +31,18 @@ const removeCart = async (req, res) => {
     }
 }
   
+// getting products from cart
+const getProductsFromCart = async (req, res) => {
+    try {
+      const cart = await Cart.findOne({ user: req.user._id });
+      const products = await Product.find({ _id: { $in: cart.products.map(item => item.product) } });
+      res.status(200).send(products);
+    } catch (e) {
+      res.status(400).send(e);
+    }
+  }
 
+// adding product to cart
 const addProductToCart = async (req, res) => {
   try {
     const cart = await Cart.findOne({ user: req.user._id });
@@ -57,6 +70,7 @@ const addProductToCart = async (req, res) => {
   }
 }
 
+// removing product from cart
 const removeProductFromCart = async (req, res) => {
   try {
     const cart = await Cart.findOne({ user: req.user._id });
@@ -79,6 +93,7 @@ const removeProductFromCart = async (req, res) => {
   }
 }
 
+// getting products status
 const getProductsStatus = async (req, res) => {
     try {
       const cart = await Cart.findOne({ user: req.user._id });
@@ -96,13 +111,31 @@ const getProductsStatus = async (req, res) => {
     }
   }
 
+  // updating product status
+  const updateProductStatus = async (req, res) => {
+    try {
+      const cart = await Cart.findOne({ user: req.user._id });
+      const product = await Product.findById(req.body.product);
+      const cartItem = cart.products.find(item => item.product.toString() === product._id.toString());
+      if (cartItem) {
+        cartItem.status = req.body.status;
+      }
+      cart.updatedAt = Date.now();
+      await cart.save();
+      res.status(200).send(cart);
+    } catch (e) {
+      res.status(400).send(e);
+    }
+  }
 
+  // helper function for calculating cart price
 const calculateCartPrice = (item) => {
     item.totalPrice = item.quantity * item.itemPrice;
     item.totalTax = item.quantity * item.itemTax;
     item.priceWithTax = item.totalPrice + item.totalTax;
     return { totalPrice, totalTax, priceWithTax };
 }
+
 
 modules.exports = {
     getCart,
@@ -112,3 +145,4 @@ modules.exports = {
     removeProductFromCart,
     getProductsStatus
 }
+
