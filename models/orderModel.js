@@ -1,11 +1,12 @@
-import { boolean } from "joi";
 import mongoose from "mongoose";
 
 
 const orderSchema = mongoose.Schema({
-    /* TODO:
-    //products of order
-    */
+ 
+    cart:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Cart'
+    },
     user:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'User'
@@ -28,11 +29,19 @@ const orderSchema = mongoose.Schema({
     createdAt:{
         type:Date,
         default:Date.now
-
+    },
+    address:{
+        type:String,
+        required:[true,"Address is required"]
     }
 
 });
 
-const Order = mongoose.Model('Order',orderSchema);
+orderSchema.pre(/^find/,function(next){
+    this.populate('user')
+    next();
+})
+
+const Order = mongoose.model('Order',orderSchema);
 
 export default Order;
