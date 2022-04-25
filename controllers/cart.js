@@ -62,7 +62,7 @@ const addProductToCart = async (req, res) => {
         const cartItem = cart.products.find(item => item.product.toString() === product._id.toString());
         if (cartItem) {
             cartItem.quantity += 1;
-            calculateCartPrice(cartItem);
+            calculateCartPrice(cartItem, product.tax);
         } else {
             cart.products.push({
                 product: product._id,
@@ -85,16 +85,15 @@ const addProductToCart = async (req, res) => {
 // removing product from cart
 const removeProductFromCart = async (req, res) => {
     try {
-
         const cart = await Cart.findOne({ user: req.user._id , _id: req.params.cartId});
-        const product = await Product.findById(req.body.product);
+        const product = await Product.findById(req.params.productId);
         const cartItem = cart.products.find(item => item.product.toString() === product._id.toString());
         if (cartItem) {
             if (cartItem.quantity === 1) {
                 cart.products.pull(cartItem);
             } else {
                 cartItem.quantity -= 1;
-                calculateCartPrice(cartItem);
+                calculateCartPrice(cartItem, product.tax);
             }
 
         }
@@ -109,8 +108,7 @@ const removeProductFromCart = async (req, res) => {
 // getting products status
 const getProductsStatus = async (req, res) => {
     try {
-        // const cart = req.params.cartId;
-        const cart = await Cart.findOne({ user: req.user._id });
+        const cart = await Cart.findOne({ user: req.user._id , _id: req.params.cartId});
         const products = await Product.find({ _id: { $in: cart.products.map(item => item.product) } });
         const productsStatus = products.map(product => {
             const cartItem = cart.products.find(item => item.product.toString() === product._id.toString());
@@ -128,10 +126,8 @@ const getProductsStatus = async (req, res) => {
 // updating product status
 const updateProductStatus = async (req, res) => {
     try {
-        // const cart = req.params.cartId;
-        // const product = req.params.productId;
-        const cart = await Cart.findOne({ user: req.user._id });
-        const product = await Product.findById(req.body.product);
+        const cart = await Cart.findOne({ user: req.user._id , _id: req.params.cartId});
+        const product = await Product.findById(req.params.productId);
         const cartItem = cart.products.find(item => item.product.toString() === product._id.toString());
         if (cartItem) {
             cartItem.status = req.body.status;
@@ -145,11 +141,10 @@ const updateProductStatus = async (req, res) => {
 }
 
 // helper function for calculating cart price
-const calculateCartPrice = (item) => {
+const calculateCartPrice = (item , tax) => {
     item.totalPrice = item.quantity * item.itemPrice;
-    item.totalTax = item.quantity * item.itemTax;
-    item.priceWithTax = item.totalPrice + item.totalTax;
-    return { totalPrice, totalTax, priceWithTax };
+    item.priceWithTax = item.totalPrice * tax;
+    return { totalPrice, priceWithTax };
 }
 
 

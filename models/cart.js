@@ -19,10 +19,6 @@ const CartItemSchema = new Schema({
     type: Number,
     default: 0
   },
-  totalTax:{
-    type: Number,
-    default: 0
-  },
   priceWithTax: {
     type: Number,
     default: 0
