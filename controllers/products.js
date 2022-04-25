@@ -1,7 +1,7 @@
-import {rtrnAllowedParams, validateUpdated} from "../utils/products.js"
-import Products from "../data/products.js"
+import { rtrnAllowedParams, validateUpdated } from "../utils/products.js";
+import Products from "../data/products.js";
 
-
+/*
 // GET products
 
 export const getProducts = (req,res) =>{
@@ -83,6 +83,4 @@ export const deleteProduct = (req,res) =>{
 
 }
 
-
-
-
+*/
