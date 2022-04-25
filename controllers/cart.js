@@ -1,12 +1,11 @@
 import Cart from "../models/cart.js";
-// import Product from "../models/product.js";
+import Product from "../models/product.js";
 
-// getting cart
-const getCart = async (req, res) => {
+// getting all carts
+const getAllCarts = async (req, res) => {
     try {
-        const cart = req.params.cartId;
-        // const cart = await Cart.findOne({ user: req.user._id });
-        res.status(200).send(cart);
+        const carts = await Cart.find({ user: req.user._id });
+        res.status(200).send(carts);
     } catch (e) {
         res.status(400).send(e);
     }
@@ -22,11 +21,22 @@ const createCart = async (req, res) => {
     }
 }
 
+// getting cart
+const getCart = async (req, res) => {
+    try {
+        const cart = await Cart.findOne({ user: req.user._id , _id: req.params.cartId});
+        res.status(200).send(cart);
+    } catch (e) {
+        res.status(400).send(e);
+    }
+}
+
+
+
 // removing cart
 const removeCart = async (req, res) => {
     try {
-        const cart = req.params.cartId;
-        // const cart = await Cart.deleteOne({ user: req.user._id });
+        const cart = await Cart.deleteOne({ user: req.user._id , _id: req.params.cartId});
         res.status(200).send(cart);
     } catch (e) {
         res.status(400).send(e);
@@ -36,8 +46,7 @@ const removeCart = async (req, res) => {
 // getting products from cart
 const getProductsFromCart = async (req, res) => {
     try {
-        const cart = req.params.cartId;
-        // const cart = await Cart.findOne({ user: req.user._id });
+        const cart = await Cart.findOne({ user: req.user._id , _id: req.params.cartId});
         const products = await Product.find({ _id: { $in: cart.products.map(item => item.product) } });
         res.status(200).send(products);
     } catch (e) {
@@ -48,10 +57,8 @@ const getProductsFromCart = async (req, res) => {
 // adding product to cart
 const addProductToCart = async (req, res) => {
     try {
-        const cart = req.params.cartId;
-        const product = req.params.productId;
-        // const cart = await Cart.findOne({ user: req.user._id });
-        // const product = await Product.findById(req.body.product);
+        const cart = await Cart.findOne({ user: req.user._id , _id: req.params.cartId});
+        const product = await Product.findById(req.body.product);
         const cartItem = cart.products.find(item => item.product.toString() === product._id.toString());
         if (cartItem) {
             cartItem.quantity += 1;
@@ -78,10 +85,9 @@ const addProductToCart = async (req, res) => {
 // removing product from cart
 const removeProductFromCart = async (req, res) => {
     try {
-        const cart = req.params.cartId;
-        const product = req.params.productId;
-        // const cart = await Cart.findOne({ user: req.user._id });
-        // const product = await Product.findById(req.body.product);
+
+        const cart = await Cart.findOne({ user: req.user._id , _id: req.params.cartId});
+        const product = await Product.findById(req.body.product);
         const cartItem = cart.products.find(item => item.product.toString() === product._id.toString());
         if (cartItem) {
             if (cartItem.quantity === 1) {
@@ -103,8 +109,8 @@ const removeProductFromCart = async (req, res) => {
 // getting products status
 const getProductsStatus = async (req, res) => {
     try {
-        const cart = req.params.cartId;
-        // const cart = await Cart.findOne({ user: req.user._id });
+        // const cart = req.params.cartId;
+        const cart = await Cart.findOne({ user: req.user._id });
         const products = await Product.find({ _id: { $in: cart.products.map(item => item.product) } });
         const productsStatus = products.map(product => {
             const cartItem = cart.products.find(item => item.product.toString() === product._id.toString());
@@ -122,10 +128,10 @@ const getProductsStatus = async (req, res) => {
 // updating product status
 const updateProductStatus = async (req, res) => {
     try {
-        const cart = req.params.cartId;
-        const product = req.params.productId;
-        // const cart = await Cart.findOne({ user: req.user._id });
-        // const product = await Product.findById(req.body.product);
+        // const cart = req.params.cartId;
+        // const product = req.params.productId;
+        const cart = await Cart.findOne({ user: req.user._id });
+        const product = await Product.findById(req.body.product);
         const cartItem = cart.products.find(item => item.product.toString() === product._id.toString());
         if (cartItem) {
             cartItem.status = req.body.status;
@@ -148,6 +154,7 @@ const calculateCartPrice = (item) => {
 
 
 modules.exports = {
+    getAllCarts,
     getCart,
     createCart,
     removeCart,
