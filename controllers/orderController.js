@@ -56,18 +56,20 @@ export const createOrder = async (req,res,next) =>{
         totalPrice,
         paid,
         paymentMethod,
+        address
     } = req.body;
     if(!cart) // TODO: handle empty cart
     {
         // HANDLE ERROR
     }
 
-    const newOrder = Order.create({
+    const newOrder = await Order.create({
         user,
         cart,
         totalPrice,
         paid,
         paymentMethod,
+        address
     })
     res.status(201).json({
         status:"Success",
@@ -88,7 +90,7 @@ export const updateOrder = async(req,res,next)=>
     let updates = {}
     for(let update in toUpdate){
         if(allowedUpdates.includes(update))
-            updates = {...updates , [update]:updatedParams[update]};
+            updates = {...updates , [update]:toUpdate[update]};
     }
     const order = await Order.findByIdAndUpdate(orderId,updates,{
         new:true,

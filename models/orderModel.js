@@ -36,11 +36,11 @@ const orderSchema = mongoose.Schema({
     }
 
 });
-
-orderSchema.pre(/^find/,function(next){
-    this.populate('user')
-    next();
-})
+ // fix populate
+// orderSchema.pre(/^find/,function(next){
+//     this.populate('User')
+//     next();
+// })
 
 const Order = mongoose.model('Order',orderSchema);
 
