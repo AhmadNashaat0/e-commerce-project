@@ -1,5 +1,6 @@
 import express from "express";
 const router = express.Router();
+import auth from '../middleware/auth.js';
 
 import {
     getAllCarts,
@@ -15,26 +16,27 @@ import {
 
 router
     .route('/')
-    .get(getAllCarts)
+    .get(auth, getAllCarts)
     .post(createCart)
+
 router
     .route('/:cartId')
-    .get(getCart)
-    .delete(removeCart)
+    .get(auth, getCart)
+    .delete(auth, removeCart)
     
 router
     .route('/:cartId/products')    
-    .get(getProductsFromCart)
+    .get(auth, getProductsFromCart)
 router
     .route('/:cartId/products/status')
-    .get(getProductsStatus)
+    .get(auth, getProductsStatus)
 router
     .route("/:cartId/:productId")
-    .patch(addProductToCart)
-    .delete(removeProductFromCart)
+    .patch(auth, addProductToCart)
+    .delete(auth, removeProductFromCart)
 
 router
     .route("/:cartId/:productId/status")
-    .patch(updateProductStatus)
+    .patch(auth, updateProductStatus)
 
 export default router;

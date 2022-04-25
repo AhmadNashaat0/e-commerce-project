@@ -1,22 +1,22 @@
 import express from "express";
 import { createOrder, getAllOrders,getUserOrder,getOrderById,updateOrder, deleteOrder } from "../controllers/orderController.js";
-// import {} from ''
+import auth from '../middleware/auth.js';
 
 const router = express.Router();
 
 router.
     route('/')
-    .get(getAllOrders)
-    .post(createOrder);
+    .get(auth, getAllOrders)
+    .post(auth, createOrder);
 
 router
     .route('/myorders')
-    .get(getUserOrder)
+    .get(auth, getUserOrder)
 
 router.
     route('/:id')
-    .get(getOrderById)
-    .patch(updateOrder)
-    .delete(deleteOrder);
+    .get(auth, getOrderById)
+    .patch(auth, updateOrder)
+    .delete(auth, deleteOrder);
 
 export default router;    
