@@ -3,32 +3,30 @@ version: '3.8'
 services:
 
   backend:
-    restart: always
     build: .
-    depends_on: mongodb
+    restart: always
     ports: 3000:3000
-    environment: 
-      DATABASE_LOCAL: mongodb://db/ecommerce
-      DATABASE_CLOUD: mongodb+srv://ahmadyasser01:ahmad2010@cluster0.c9qrf.mongodb.net/e-commerce?retryWrites=true&w=majority
+    depends_on: 
+      - database
 
-  mongodb:
+  database:
     image: mongo
     restart: always
     ports: 27017:27017
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: pass
     volumes:
       - ecommerce:/data/db
 
-  mongo-express:
+  database-ui:
     image: mongo-express
     restart: always
     ports: 8081:8081
     environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: root
-      ME_CONFIG_MONGODB_ADMINPASSWORD: example
-      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
+      ME_CONFIG_MONGODB_ADMINUSERNAME: admin
+      ME_CONFIG_MONGODB_ADMINPASSWORD: pass
+      ME_CONFIG_MONGODB_URL: mongodb://admin:pass@database:27017/
 
 volumes:
   ecommerce:
