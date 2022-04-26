@@ -62,6 +62,7 @@ export const createOrder = async (req,res,next) =>{
     {
         // HANDLE ERROR
     }
+
     const newOrder = await Order.create({
         user,
         cart,
