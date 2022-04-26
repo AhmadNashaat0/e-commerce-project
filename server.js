@@ -11,6 +11,13 @@ const port = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(cookies());
+app.use(express.static('views'));
+app.get('/', function(req, res){
+    res.render('views/index.html');
+ });
+app.get('/api', function(req, res){
+    res.render('views/index.html');
+ });
 routes(app);
 
 connectDB(process.env.DATABASE_CLOUD);

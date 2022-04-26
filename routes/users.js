@@ -3,9 +3,8 @@ const router = express.Router();
 import auth from '../middleware/auth.js';
 import admin from '../middleware/admin.js';
 import {
-    register, login, logout, logoutAll, 
-    editMe, deleteMe,getAllUsers, getMe,
-    getUser,
+    register,getAllUsers , logout, logoutAll, 
+    editMe, deleteMe,login , getMe, getUser,
     } from '../controllers/users.js';
 
 

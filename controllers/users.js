@@ -87,6 +87,24 @@ export const logoutAll = async (req, res) => {
     }
 }
 
+// @description    user get his account
+// @route          GET /api/users/me
+// @access         private
+export const getMe = async (req, res) => {
+    try {
+        res.status(200).json({
+            status:"Success",
+            message:"User returned successfully",
+            user: req.user
+        })
+    }catch(error){
+        res.status(400).json({
+            status:"error",
+            message: error.message
+        });
+    }
+}
+
 // @description    user edit specified information ['firstName', 'lastName', 'email', 'password']
 // @route          PATCH /api/users/me
 // @access         private
@@ -133,18 +151,19 @@ export const deleteMe = async(req, res) => {
     }
 }
 
-// @description    user get his account
-// @route          GET /api/users/me
-// @access         private
-export const getMe = async (req, res) => {
+// @description    get user by id from DB
+// @route          GET /api/users
+// @access         private & admin
+export const getUser = async (req, res) => {
     try {
+        const user = await User.findById(req.params.id);
         res.status(200).json({
             status:"Success",
-            message:"User returned successfully",
-            user: req.user
+            message:`user with id:req.params.id returned successfully`,
+            users: user
         })
     }catch(error){
-        res.status(400).json({
+        res.status(500).json({
             status:"error",
             message: error.message
         });
@@ -169,24 +188,4 @@ export const getAllUsers = async (req, res) => {
         });
     }
 }
-
-// @description    get user by id from DB
-// @route          GET /api/users
-// @access         private & admin
-export const getUser = async (req, res) => {
-    try {
-        const user = await User.findById(req.params.id);
-        res.status(200).json({
-            status:"Success",
-            message:`user with id:req.params.id returned successfully`,
-            users: user
-        })
-    }catch(error){
-        res.status(500).json({
-            status:"error",
-            message: error.message
-        });
-    }
-}
-
 
