@@ -6,14 +6,18 @@ const auth = async (req, res, next) => {
         const token = req.cookies.token || '';
         const decoded = jwt.verify(token, 'secret_key');
         const user = await User.findOne({ _id: decoded._id, 'tokens.token': token });
-
+        
         if (!user) {
-            throw new Error('you are not logged in');
+            throw new Error('you must be authenticated');
         }
+
         req.user = user;
         next();
-    } catch (e) {
-        res.status(401).send({'error':e.message});
+    } catch (error) {
+        res.status(401).json({
+            status: 'error',
+            message: error.message
+        });
     }
 }
 
