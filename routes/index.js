@@ -3,12 +3,8 @@ import cartRouter from './cart.js';
 import usersRoute from './users.js';
 import orderRoute from './OrderRoutes.js';
 
-
 const routes = (app) => {
     app.get('/', function(req, res){
-        res.render('../views/index.html');
-     });
-     app.get('/api', function(req, res){
         res.render('../views/index.html');
      });
     app.use('/api/products', productsRoute);
