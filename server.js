@@ -19,6 +19,12 @@ app.get('/api', function(req, res){
     res.render('views/index.html');
  });
 routes(app);
+app.get('*', function(req, res){
+    res.status(404).json({
+        status:'error',
+        message:"404 this Page Not Found",
+    });
+ });
 
 connectDB(process.env.DATABASE_CLOUD);
 app.listen(port, () => console.log(`Server works on port : ${port}`));
