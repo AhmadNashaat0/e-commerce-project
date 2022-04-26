@@ -3,8 +3,6 @@ import cookies from 'cookie-parser';
 import dotenv from 'dotenv';
 import connectDB  from "./db/connect.js";
 import routes from './routes/index.js';
-import path from 'path';
-
 
 dotenv.config();
 
