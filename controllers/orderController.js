@@ -69,7 +69,7 @@ export const createOrder = async (req,res,next) =>{
         totalPrice,
         paid,
         paymentMethod,
-        address
+        address,
     })
     res.status(201).json({
         status:"Success",
@@ -109,6 +109,7 @@ export const updateOrder = async(req,res,next)=>
         }
     });
 };
+
 // @desc    update an Order
 // @route   patch /api/orders/:id
 // @access  Private

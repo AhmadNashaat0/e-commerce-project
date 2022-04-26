@@ -1,5 +1,5 @@
 import Cart from "../models/cart.js";
-import Product from "../models/product.js";
+import Product from "../models/ProductModel.js";
 
 // getting all carts
 const getAllCarts = async (req, res) => {
@@ -31,8 +31,6 @@ const getCart = async (req, res) => {
     }
 }
 
-
-
 // removing cart
 const removeCart = async (req, res) => {
     try {
@@ -58,11 +56,11 @@ const getProductsFromCart = async (req, res) => {
 const addProductToCart = async (req, res) => {
     try {
         const cart = await Cart.findOne({ user: req.user._id , _id: req.params.cartId});
-        const product = await Product.findById(req.body.product);
+        const product = await Product.findById(req.params.productId.toString());
         const cartItem = cart.products.find(item => item.product.toString() === product._id.toString());
         if (cartItem) {
             cartItem.quantity += 1;
-            calculateCartPrice(cartItem, product.tax);
+            calculateCartPrice(cartItem, 0.1);
         } else {
             cart.products.push({
                 product: product._id,
@@ -78,7 +76,8 @@ const addProductToCart = async (req, res) => {
         await cart.save();
         res.status(200).send(cart);
     } catch (e) {
-        res.status(400).send(e);
+        console.log(e.message);
+        res.status(400).send(e.message);
     }
 }
 
@@ -93,7 +92,7 @@ const removeProductFromCart = async (req, res) => {
                 cart.products.pull(cartItem);
             } else {
                 cartItem.quantity -= 1;
-                calculateCartPrice(cartItem, product.tax);
+                calculateCartPrice(cartItem, 0.1);
             }
 
         }
@@ -108,7 +107,7 @@ const removeProductFromCart = async (req, res) => {
 // getting products status
 const getProductsStatus = async (req, res) => {
     try {
-        const cart = await Cart.findOne({ user: req.user._id , _id: req.params.cartId});
+        const cart = await Cart.findOne({ user: req.user._id.toString() , _id: req.params.cartId.toString()});
         const products = await Product.find({ _id: { $in: cart.products.map(item => item.product) } });
         const productsStatus = products.map(product => {
             const cartItem = cart.products.find(item => item.product.toString() === product._id.toString());
@@ -144,11 +143,11 @@ const updateProductStatus = async (req, res) => {
 const calculateCartPrice = (item , tax) => {
     item.totalPrice = item.quantity * item.itemPrice;
     item.priceWithTax = item.totalPrice * tax;
-    return { totalPrice, priceWithTax };
+    return { 'totalPrice':item.totalPrice, 'priceWithTax':item.priceWithTax };
 }
 
 
-modules.exports = {
+export {
     getAllCarts,
     getCart,
     createCart,

@@ -51,5 +51,7 @@ const CartSchema = new Schema({
   }
 });
 
-moudul.exports =  mongoose.model('CartItem', CartItemSchema);
-export default mongoose.model('Cart', CartSchema);
+const cartItem =  mongoose.model('CartItem', CartItemSchema);
+const cart = mongoose.model('Cart', CartSchema);
+
+export default cart;

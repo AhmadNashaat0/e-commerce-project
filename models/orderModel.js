@@ -36,9 +36,11 @@ const orderSchema = mongoose.Schema({
     }
 
 });
- // fix populate
+
+
+// fix populate
 // orderSchema.pre(/^find/,function(next){
-//     this.populate('User')
+//     this.populate('user')
 //     next();
 // })
 
