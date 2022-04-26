@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>E-commerce Api</title>
+</head>
+<body>
+    <div class="container">
+        <div class="welcome">
+            <h1>Welcome to</h1>
+            <h1>E-commerce Api</h1>
+            <p class="p1">E-commerce Api is restful api that designed to handle users, products </p>
+            <p>, carts and orders features using node.js and mongoDb.</p>
+        </div>
+        <div class="routes">
+            <h2>Users Endpoint :</h2>
+            <h3>get all users > <span>GET : api/users</span></h3>
+            <h3>get user by id > <span>GET : api/users/:id</span></h3>
+            <h3>register a user > <span>POST : api/users/register</span></h3>
+            <h3>user login > <span>POST : api/users/login</span></h3>
+            <h3>user logout > <span>POST : api/users/logout</span></h3>
+            <h3>user logout all devices > <span>POST : api/users/logoutAll</span></h3>
+            <h3>user account > <span>GET : api/users/me</span></h3>
+            <h3>user update his account > <span>PUT : api/users/me</span></h3>
+            <h3>user delete his acount > <span>DELETE : api/users/me</span></h3>
+            <hr>
+            <h2>Products Endpoint :</h2>
+            <h3>get all products > <span>GET : /api/product</span></h3>
+            <h3>add products > <span>POST : /api/product</span></h3>
+            <h3>get product by id > <span>GET : /api/product/:id</span></h3>
+            <h3>update product > <span>PATCH : /api/product/:id</span></h3>
+            <h3>delete product > <span>DELETE : /api/product/:id</span></h3>
+            <hr>
+            <h2>Orders Endpoint :</h2>
+            <h3>get all orders > <span>GET : /api/orders</span></h3>
+            <h3>create order > <span>POST : /api/orders</span></h3>
+            <h3>get order by id > <span>GET : /api/orders/:id</span></h3>
+            <h3>update order > <span>PATCH : /api/orders/:id</span></h3>
+            <h3>delete order > <span>DELETE : /api/orders/:id</span></h3>
+            <h3>get all user order > <span>GET : /api/orders/myorders</span></h3>
+            <hr>
+            <h2>Cart Endpoint :</h2>
+            <h3>get all my carts > <span>GET : /api/cart</span></h3>
+            <h3>create cart > <span>POST : /api/cart</span></h3>
+            <h3>get cart by id > <span>GET : /api/cart/:cart-id</span></h3>
+            <h3>delete cart > <span>DELETE : /api/cart/:cart-id</span></h3>
+            <h3>get all products in my cart > <span>GET : /api/cart-id/products</span></h3>
+            <h3>add product to cart > <span>PATCH : /api/cart/:cart-id/:product-id</span></h3>
+            <h3>delete product from cart > <span>DELETE : /api/cart/:cart-id/:product-id</span></h3>
+            <h3>get all products status from my cart > <span>GET : /api/cart-id/products/status</span></h3>
+            <h3>get product status in my cart > <span>GET : /api/cart-id/product-id/status</span></h3>
+        </div>
+    </div>
+</body>
+</html>
