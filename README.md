@@ -9,8 +9,8 @@ tools used include `Node.js` `Express` `MongoDB`
 
 
 ```
-docker pull ahmednashaat/ecommerce-backend
-docker run -p 3000:3000  ahmednashaat/node-app:1.
+docker pull ahmednashaat/ecommerce-backend:1.0
+docker run -p 3000:3000  ahmednashaat/node-app:1.0
 ```
 
 to try it online follow this link : [e-commerce API](https://ecommerce-backend-testproject.herokuapp.com)
