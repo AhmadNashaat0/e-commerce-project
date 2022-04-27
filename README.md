@@ -71,3 +71,10 @@ to try it online follow this link : [e-commerce API](https://ecommerce-backend-t
 | /api/cart/:cartId/products/status   	| Get    	| get products status from cart 	|
 
 <br>
+
+---
+## Team members
+- [Omar Gamal](https://github.com/O-Gamal)
+- [Ahmed Nashat](https://github.com/AhmadNashaat0)
+- [Ahmed Yasser](https://github.com/ahmadyasser01)
+- [Shahenda Hamdy](https://github.com/shahendahamdy)
