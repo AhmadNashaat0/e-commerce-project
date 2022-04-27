@@ -55,3 +55,19 @@ to try it online follow this link : [e-commerce API](https://ecommerce-backend-t
 | /api/orders/:id      	| Delete 	| delete order        	|
 | /api/orders/myorders 	| Get    	| get all user orders 	|
 <br>
+
+- Cart Endpoint
+
+| Routes                              	| Method 	| Description                   	|
+|-------------------------------------	|--------	|-------------------------------	|
+| /api/cart                           	| Get    	| get all user carts            	|
+| /api/cart                           	| Post   	| create cart                   	|
+| /api/cart/:cartId                   	| Get    	| get cart by id                	|
+| /api/cart/:cartId                   	| Delete 	| delete cart                   	|
+| /api/cart/:cartId/products          	| Get    	| get all products in cart      	|
+| /api/cart/:cartId/:productId        	| Post   	| add product to cart           	|
+| /api/cart/:cartId/:productId        	| Delete 	| delete product from cart      	|
+| /api/cart/:cartId/:productId/status 	| Patch  	| edit product status in cart   	|
+| /api/cart/:cartId/products/status   	| Get    	| get products status from cart 	|
+
+<br>
