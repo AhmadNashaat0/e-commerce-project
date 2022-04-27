@@ -38,11 +38,11 @@ to try it online follow this link : [e-commerce API](https://ecommerce-backend-t
 
 | Routes           	| Method 	| Description       	|
 |------------------	|--------	|-------------------	|
-| /api/product     	| Get    	| get all products  	|
-| /api/product     	| Post   	| add products      	|
-| /api/product/:id 	| Get    	| get product by id 	|
-| /api/product/:id 	| Patch  	| update product    	|
-| /api/product/:id 	| Delete 	| delete product    	|
+| /api/products     	| Get    	| get all products  	|
+| /api/products     	| Post   	| add products      	|
+| /api/products/:id 	| Get    	| get product by id 	|
+| /api/products/:id 	| Patch  	| update product    	|
+| /api/products/:id 	| Delete 	| delete product    	|
 <br>
 
 - Orders Endpoint
