@@ -5,13 +5,21 @@ import Order from "../models/orderModel.js";
 // @route   GET /api/orders
 // @access  Private/Admin
 export const getAllOrders = async(req,res,next) =>{
+  try{
 const orders = await Order.find({})
 
     res.status(200).json({
         status:"Success",
         count:orders.length,
         data:orders
-    })
+    })}
+ catch(e) {
+  res.status(400).json({
+            status:"fail",
+            data:error
+        })
+
+}
 }
 // @desc    Get User Orders
 // @route   GET /api/orders/myorders
