@@ -10,6 +10,7 @@ tools used include `Node.js` `Express` `MongoDB`
 
 ```
 docker pull ahmednashaat/ecommerce-backend:1.0
+
 docker run -p 3000:3000  ahmednashaat/ecommerce-backend:1.0
 ```
 
